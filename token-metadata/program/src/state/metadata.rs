@@ -1,3 +1,5 @@
+use std::io;
+
 use super::*;
 use crate::{
     assertions::{
@@ -338,6 +340,16 @@ impl borsh::de::BorshDeserialize for Metadata {
     fn deserialize(buf: &mut &[u8]) -> ::core::result::Result<Self, BorshError> {
         let md = meta_deser_unchecked(buf)?;
         Ok(md)
+    }
+
+    fn deserialize_reader<R: std::io::Read>(reader: &mut R) -> std::io::Result<Self> {
+          let mut buffer = Vec::new();
+          reader.read_to_end(&mut buffer)?;
+          let mut buf: &[u8] = &buffer;
+          match BorshDeserialize::deserialize(&mut buf) {
+              Ok(result) => Ok(result),
+              Err(error) => Err(io::Error::new(io::ErrorKind::Other, error)),
+          }
     }
 }
 

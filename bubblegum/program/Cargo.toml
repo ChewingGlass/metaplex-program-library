@@ -20,21 +20,22 @@ test-bpf = []
 default = []
 
 [dependencies]
-anchor-lang = { version = "0.26.0", features = ["init-if-needed"] }
+anchor-lang = { version = "0.28.0", features = ["init-if-needed"] }
 bytemuck = "1.13.0"
-mpl-token-metadata = { version = "1.11", features = ["no-entrypoint"] }
-solana-program = "=1.14.13"
-spl-account-compression = { version="0.1.8", features = ["cpi"] }
+mpl-token-metadata = { path = "../../token-metadata/program", features = ["no-entrypoint"] }
+solana-program = "1.16"
+spl-account-compression = { git = "https://github.com/ChewingGlass/solana-program-library.git", features = ["cpi"] }
 spl-associated-token-account = { version = "1.1.1", features = ["no-entrypoint"] }
 spl-token = { version = "3.5", features = ["no-entrypoint"] }
+borsh = "0.10"
 
 [dev-dependencies]
-solana-program-test = "1.14"
-solana-sdk = "1.14"
+solana-program-test = "1.16"
+solana-sdk = "1.16"
 spl-concurrent-merkle-tree = "0.1.2"
 spl-merkle-tree-reference = "0.1.0"
 spl-noop = { version = "0.1.3", features = ["no-entrypoint"] }
-mpl-token-auth-rules = { version = "1.1", features = ["no-entrypoint"] }
+mpl-token-auth-rules = { git = "https://github.com/ChewingGlass/mpl-token-auth-rules.git", features = ["no-entrypoint"] }
 
 [profile.release]
 overflow-checks = true     # Enable integer overflow checks.
